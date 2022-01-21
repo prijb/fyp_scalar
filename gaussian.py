@@ -17,7 +17,7 @@ x_sig = 1       #Gaussian standard dev in x
 p_sig = 1/x_sig #Gaussian standard dev in p
 
 x = np.linspace(-10,10,100)
-t = 0           #Time at which rho and j are calculated
+t = 10        #Time at which rho and j are calculated
 
 '''
 Additional code to try to make it a 2d colour plot
@@ -51,7 +51,7 @@ def gaussian(x,x0,sig):
     return y
 
 def integrand_rho(px,py,p0,psig,x,t):
-    i = (1 + 1/(np.sqrt(1+px**2)*np.sqrt(1+py**2)) + px*py/(np.sqrt(1+px**2)*np.sqrt(1+py**2)))*(np.cos((px-py)*x) - ((np.sqrt(1+px**2)-np.sqrt(1+py**2))*t))*np.exp(-(px**2+py**2)/psig**2)
+    i = (1 + 1/(np.sqrt(1+px**2)*np.sqrt(1+py**2)) + px*py/(np.sqrt(1+px**2)*np.sqrt(1+py**2)))*(np.cos((px-py)*x - ((np.sqrt(1+px**2)-np.sqrt(1+py**2))*t)))*np.exp(-(px**2+py**2)/psig**2)
     
     return i
 
@@ -97,6 +97,7 @@ plt.plot(x,p_dens,color='red',label='Probability density')
 plt.plot(x,j_dens,color='blue',label='Probability current density')
 plt.xlabel('Position')
 plt.ylabel(r'$\rho$/j')
+plt.xlim(-10,10)
 plt.grid()
 plt.legend()
 plt.show()   
